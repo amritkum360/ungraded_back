@@ -50,9 +50,14 @@ router.post("/firebase", async (req, res) => {
       needsName: !user.name?.trim() || user.name.trim().length < 2,
     });
   } catch (err) {
-    console.error(err);
-    res.status(401).json({ message: "Firebase login failed. Please try again." });
-  }
+  console.error("FIREBASE ERROR:", err);
+
+  res.status(401).json({
+    message: err.message,
+    code: err.code
+    
+  });
+}
 });
 
 router.post("/send-otp", async (req, res) => {
